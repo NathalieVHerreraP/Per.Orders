@@ -7,9 +7,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Entities\OrderEntity\Models\" />
-    <Folder Include="Entities\OrderEntity\Repositories\" />
-  </ItemGroup>
-
 </Project>
