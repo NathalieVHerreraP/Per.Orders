@@ -1,0 +1,6 @@
+@Per.Orden.API_HostAddress = http://localhost:5096
+
+GET {{Per.Orden.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
