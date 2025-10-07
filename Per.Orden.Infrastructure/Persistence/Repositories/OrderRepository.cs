@@ -10,18 +10,11 @@ internal class OrderRepository(AplicationDbContext context) : IOrderRepository
 {
     public async Task<CancelOrderModel> CancelOrder(int orderId)
     {
-        OrderEntity order;
-
-        try
-        {
-            order = await context.Orders.FirstAsync(x => x.id == orderId);
-        }
-        catch (Exception e)
+        OrderEntity order = await context.Orders.FirstOrDefaultAsync(x => x.id == orderId);
+        if (order is null)
         {
             throw new Exception("OrderNotFound");
         }
-
-
 
         if (String.Equals(order.status, "PENDING") || String.Equals(order.status, "CREATED"))
         {

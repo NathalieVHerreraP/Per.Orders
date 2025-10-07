@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Per.Order.Infrastructure", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Per.Order.API", "Per.Orden.API\Per.Order.API.csproj", "{15B4BE7B-BF1D-4B71-B378-57693027BEE9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Per.Order.Tests", "Per.Order.Tests\Per.Order.Tests.csproj", "{F69733EA-8939-46A5-B85E-9BD5C4408462}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{15B4BE7B-BF1D-4B71-B378-57693027BEE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{15B4BE7B-BF1D-4B71-B378-57693027BEE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{15B4BE7B-BF1D-4B71-B378-57693027BEE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F69733EA-8939-46A5-B85E-9BD5C4408462}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F69733EA-8939-46A5-B85E-9BD5C4408462}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F69733EA-8939-46A5-B85E-9BD5C4408462}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F69733EA-8939-46A5-B85E-9BD5C4408462}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
