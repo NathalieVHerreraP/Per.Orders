@@ -22,6 +22,7 @@ internal class OrderRepository(AplicationDbContext context) : IOrderRepository
 
             order.status = "CANCELLED";
             order.cancellationDate = DateTime.Now;
+            order.updatedAt = DateTime.Now;
             context.Orders.Update(order);
             await context.SaveChangesAsync();
 
