@@ -18,7 +18,7 @@ public class CancelOrderCommandHandler(IOrderRepository repository) : IRequestHa
         CancelOrderModel order;
         try
         {
-            order = await _repository.CancelOrder(request.orderId);
+            order = await _repository.CancelOrder(request.orderId, cancellationToken);
         }
         catch (Exception ex)
         {
@@ -28,6 +28,8 @@ public class CancelOrderCommandHandler(IOrderRepository repository) : IRequestHa
                     return Result<CancelOrderCommandResponse>.Failure(404, "OrderNotFound", "The order was not found");
                 case "OrderCanotBeCancel":
                     return Result<CancelOrderCommandResponse>.Failure(409, "OrderCanotBeCancel", "The order can't be canceled");
+                case "TaskCancelled":
+                    return Result<CancelOrderCommandResponse>.Failure(499, "TaskCancelled", "The operation was cancelled");
                 default:
                     return Result<CancelOrderCommandResponse>.Failure(500, "ServerError", "An error occurred while processing the request");
             }

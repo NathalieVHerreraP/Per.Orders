@@ -8,9 +8,17 @@ namespace Per.Order.Infrastructure.Persistence.Repositories;
 
 internal class OrderRepository(AplicationDbContext context) : IOrderRepository
 {
-    public async Task<CancelOrderModel> CancelOrder(int orderId)
+    public async Task<CancelOrderModel> CancelOrder(int orderId, CancellationToken cancellationToken)
     {
-        OrderEntity order = await context.Orders.FirstOrDefaultAsync(x => x.id == orderId);
+        OrderEntity order;
+        try
+        {
+            order = await context.Orders.FirstOrDefaultAsync(x => x.id == orderId, cancellationToken);
+        }
+        catch (Exception e)
+        {
+            throw new Exception("TaskCancelled");
+        }
 
         if (order is null)
         {
@@ -24,7 +32,15 @@ internal class OrderRepository(AplicationDbContext context) : IOrderRepository
             order.cancellationDate = DateTime.Now;
             order.updatedAt = DateTime.Now;
             context.Orders.Update(order);
-            await context.SaveChangesAsync();
+            try
+            {
+                await context.SaveChangesAsync(cancellationToken);
+            }
+            catch (Exception e)
+            {
+                throw new Exception("TaskCancelled");
+            }
+            
 
         }
         else

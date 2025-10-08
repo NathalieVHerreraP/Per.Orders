@@ -19,12 +19,13 @@ public static class OrderModules
 
     }
     private static async Task<IResult> CancelOrder(
+        CancellationToken cancellationToken,
        [FromQuery] int orderId,
        ISender sender
        )
     {
         CancelOrderCommand command = new(orderId);
-        Result<CancelOrderCommandResponse> result = await sender.Send(command);
+        Result<CancelOrderCommandResponse> result = await sender.Send(command, cancellationToken);
         if (!result.IsSuccess)
         {
             switch (result.StatusCode)
@@ -35,8 +36,11 @@ public static class OrderModules
                     return Results.NotFound(result.Error);
                 case 409:
                     return Results.Conflict(result.Error);
+                case 499:
+                    return Results.StatusCode(499);
                 case 500:
                     return Results.Problem(result.Error?.ErrorMessage);
+                
             }
         }
 
