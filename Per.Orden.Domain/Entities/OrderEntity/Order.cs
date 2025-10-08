@@ -1,6 +1,7 @@
 ﻿
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Xml;
 
 namespace Per.Order.Domain.Entities.OrderEntity;
 
@@ -10,7 +11,7 @@ public class Order
     [Column("order_id")]
     public int id { get; set; }
     [Column("user_id")]
-    public int userId { get; set; }
+    public Guid userId { get; set; }
     [Column("cart_id")] 
     public int cartId { get; set; }
     [Column("customer_address")]

@@ -8,8 +8,8 @@ namespace Per.Order.Application.Orders.Commands.CancelOrder;
 
 public class CancelOrderCommandHandler(IOrderRepository repository) : IRequestHandler<CancelOrderCommand, Result<CancelOrderCommandResponse>>
 {
-    private  readonly IOrderRepository _repository = repository;
-    async Task<Result<CancelOrderCommandResponse>> IRequestHandler<CancelOrderCommand, Result<CancelOrderCommandResponse>>.Handle(CancelOrderCommand request, CancellationToken cancellationToken)
+    private readonly IOrderRepository _repository = repository;
+    public async Task<Result<CancelOrderCommandResponse>> Handle(CancelOrderCommand request, CancellationToken cancellationToken)
     {
         if (request.orderId <= 0)
         {

@@ -11,6 +11,7 @@ internal class OrderRepository(AplicationDbContext context) : IOrderRepository
     public async Task<CancelOrderModel> CancelOrder(int orderId)
     {
         OrderEntity order = await context.Orders.FirstOrDefaultAsync(x => x.id == orderId);
+
         if (order is null)
         {
             throw new Exception("OrderNotFound");
