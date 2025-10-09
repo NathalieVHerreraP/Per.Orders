@@ -1,7 +1,6 @@
 ﻿
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Xml;
 
 namespace Per.Order.Domain.Entities.OrderEntity;
 
@@ -18,9 +17,7 @@ public class Order
     public string customerAddress { get; set; } = string.Empty;
     [Column("payment_method")]
     public string paymentMethod { get; set; } = string.Empty;
-    [Column ("status")]
     public string status { get; set; } = string.Empty;
-
     public decimal total { get; set; }
     public decimal discount { get; set; }
     [Column("created_at")]

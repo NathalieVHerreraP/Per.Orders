@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Per.Order.Domain.Entities.OrderEntity;
 using Per.Order.Domain.Entities.OrderEntity.Models;
 using Per.Order.Domain.Entities.OrderEntity.Repositories;
 using Per.Order.Infrastructure.Persistence.Context;
@@ -32,8 +33,15 @@ internal class OrderRepository(AplicationDbContext context) : IOrderRepository
             order.cancellationDate = DateTime.Now;
             order.updatedAt = DateTime.Now;
             context.Orders.Update(order);
+            OrderStatusHistory statusHistory = new()
+            {
+                orderId = order.id,
+                status = order.status,
+                changedAt = order.updatedAt
+            };
             try
             {
+                await context.OrderStatusHistory.AddAsync(statusHistory, cancellationToken);
                 await context.SaveChangesAsync(cancellationToken);
             }
             catch (Exception e)
