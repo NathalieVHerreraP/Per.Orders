@@ -16,12 +16,12 @@ public static class OrderModules
     {
         var orderGroup = app.MapGroup(BASE_URL);
 
-        orderGroup.MapPut("CancelOrder/{id}", CancelOrder);
+        orderGroup.MapPut("CancelOrder/{orderId}", CancelOrder);
 
     }
 
     private static async Task<IResult> CancelOrder(
-        [FromQuery] int orderId, 
+        [FromRoute] int orderId, 
         CancellationToken cancellationToken, 
         ISender sender)
     {

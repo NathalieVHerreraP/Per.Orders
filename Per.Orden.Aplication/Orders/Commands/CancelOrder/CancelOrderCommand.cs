@@ -1,6 +1,4 @@
-﻿
-
-using MediatR;
+﻿using MediatR;
 using Per.Order.Domain.Shared;
 
 namespace Per.Order.Application.Orders.Commands.CancelOrder;
