@@ -1,6 +1,4 @@
-﻿using static System.Runtime.InteropServices.JavaScript.JSType;
-
-namespace Per.Orden.Domain.Shared;
+﻿namespace Per.Order.Domain.Shared;
 
 public class Result
 {
