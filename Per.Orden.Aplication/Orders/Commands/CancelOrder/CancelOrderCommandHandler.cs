@@ -1,8 +1,8 @@
-﻿
-using MediatR;
+﻿using MediatR;
 using Per.Order.Domain.Entities.OrderEntity.Models;
 using Per.Order.Domain.Entities.OrderEntity.Repositories;
 using Per.Order.Domain.Shared;
+using OrderEntity = Per.Order.Domain.Entities.OrderEntity.Order;
 
 namespace Per.Order.Application.Orders.Commands.CancelOrder;
 
@@ -13,35 +13,54 @@ public class CancelOrderCommandHandler(IOrderRepository repository) : IRequestHa
     {
         if (request.orderId <= 0)
         {
-            return Result<CancelOrderCommandResponse>.Failure(400, "InvalidOrderId", "The order ID is not valid");
+            return HandleErrors(new Exception("InvalidOrderId"));
         }
-        CancelOrderModel order;
+
+        OrderEntity order;
         try
         {
-            order = await _repository.CancelOrder(request.orderId, cancellationToken);
+            order = await _repository.GetOrderById(request.orderId, cancellationToken);
         }
         catch (Exception ex)
         {
-            switch (ex.Message)
-            {
-                case "OrderNotFound":
-                    return Result<CancelOrderCommandResponse>.Failure(404, "OrderNotFound", "The order was not found");
-                case "OrderCanotBeCancel":
-                    return Result<CancelOrderCommandResponse>.Failure(409, "OrderCanotBeCancel", "The order can't be canceled");
-                case "TaskCancelled":
-                    return Result<CancelOrderCommandResponse>.Failure(499, "TaskCancelled", "The operation was cancelled");
-                default:
-                    return Result<CancelOrderCommandResponse>.Failure(500, "ServerError", "An error occurred while processing the request");
-            }
+            return HandleErrors(ex);
+        }
+
+        CancelOrderModel orderModel;
+        try
+        {
+            orderModel = await _repository.CancelOrder(order, cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            return HandleErrors(ex);
+
         }
         CancelOrderCommandResponse response = new()
         {
-            id = order.id,
-            cancellationDate = order.cancellationDate,
-            status = order.status
+            Id = orderModel.Id,
+            CancellationDate = orderModel.CancellationDate,
+            Status = orderModel.Status
         };
 
 
         return Result<CancelOrderCommandResponse>.Success(response);
+    }
+
+    private static Result<CancelOrderCommandResponse> HandleErrors(Exception ex)
+    {
+        switch (ex.Message)
+        {
+            case "InvalidOrderId":
+                return Result<CancelOrderCommandResponse>.Failure(400, "InvalidOrderId", "The order ID is not valid");
+            case "OrderNotFound":
+                return Result<CancelOrderCommandResponse>.Failure(404, "OrderNotFound", "The order was not found");
+            case "OrderCanotBeCancel":
+                return Result<CancelOrderCommandResponse>.Failure(409, "OrderCanotBeCancel", "The order can't be canceled");
+            case "TaskCancelled":
+                return Result<CancelOrderCommandResponse>.Failure(499, "TaskCancelled", "The operation was cancelled");
+            default:
+                return Result<CancelOrderCommandResponse>.Failure(500, "ServerError", "An error occurred while processing the request");
+        }
     }
 }

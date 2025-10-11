@@ -8,27 +8,27 @@ public class Order
 {
     [Key]
     [Column("order_id")]
-    public int id { get; set; }
+    public int Id { get; set; }
     [Column("user_id")]
-    public Guid userId { get; set; }
+    public Guid UserId { get; set; }
     [Column("cart_id")]
-    public int cartId { get; set; }
+    public int CartId { get; set; }
     [Column("customer_address")]
-    public string customerAddress { get; set; } = string.Empty;
+    public string CustomerAddress { get; set; } = string.Empty;
     [Column("payment_method")]
-    public string paymentMethod { get; set; } = string.Empty;
+    public string PaymentMethod { get; set; } = string.Empty;
     [Column("status")]
-    public string status { get; set; } = string.Empty;
+    public string Status { get; set; } = string.Empty;
     [Column("total")]
-    public decimal total { get; set; }
+    public decimal Total { get; set; }
     [Column("discount")]
-    public decimal? discount { get; set; }
+    public decimal? Discount { get; set; }
     [Column("created_at")]
-    public DateTime createdAt { get; set; }
+    public DateTime CreatedAt { get; set; }
     [Column("updated_at")]
-    public DateTime updatedAt { get; set; }
+    public DateTime UpdatedAt { get; set; }
     [Column("cancellation_date")]
-    public DateTime? cancellationDate { get; set; }
+    public DateTime? CancellationDate { get; set; }
 
 }
 

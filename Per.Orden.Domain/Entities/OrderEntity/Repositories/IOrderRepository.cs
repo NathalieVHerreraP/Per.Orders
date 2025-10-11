@@ -1,9 +1,9 @@
-﻿
-using Per.Order.Domain.Entities.OrderEntity.Models;
+﻿using Per.Order.Domain.Entities.OrderEntity.Models;
 
 namespace Per.Order.Domain.Entities.OrderEntity.Repositories;
 
 public interface IOrderRepository
 {
-    public Task<CancelOrderModel> CancelOrder(int orderId, CancellationToken cancellationToken);
+    public Task<CancelOrderModel> CancelOrder(Order order, CancellationToken cancellationToken);
+    public Task<Order> GetOrderById(int orderId, CancellationToken cancellationToken);
 }

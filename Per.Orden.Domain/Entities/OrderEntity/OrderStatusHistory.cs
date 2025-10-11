@@ -8,11 +8,11 @@ public class OrderStatusHistory
 {
     [Key]
     [Column("history_id")]
-    public int historyId { get; set; }
+    public int Id { get; set; }
     [Column("order_id")]
-    public int orderId { get; set; }
-    public string status { get; set; } = string.Empty;
+    public int OrderId { get; set; }
+    public string Status { get; set; } = string.Empty;
     [Column("changed_at")]
-    public DateTime changedAt { get; set; }
+    public DateTime ChangedAt { get; set; }
 }
 
